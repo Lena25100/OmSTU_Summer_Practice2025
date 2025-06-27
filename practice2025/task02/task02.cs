@@ -3,9 +3,9 @@ namespace task02
 {
     public class Student
     {
-        public string Name { get; set; }
-        public string Faculty { get; set; }
-        public List<int> Grades { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Faculty { get; set; } = string.Empty;
+        public List<int> Grades { get; set; } = new();
     }
 
     public class StudentService
@@ -18,17 +18,24 @@ namespace task02
         public IEnumerable<Student> GetStudentsByFaculty(string faculty)
         => _students.Where(student => student.Faculty == faculty);
 
-        public IEnumerable<Student> GetStudentsWithMinAverageGrade(double minAverageGrade) 
-        => _students.Where(student => student.Grades.Average() >= minAverageGrade);
+        public IEnumerable<Student> GetStudentsWithMinAverageGrade(double minAverageGrade)
+        => _students
+            .Where(student => student.Grades != null &&
+                   student.Grades.Count > 0 &&
+                   student.Grades.Average() >= minAverageGrade);
 
         public IEnumerable<Student> GetStudentsOrderedByName()
-            => _students.OrderBy(Student => Student.Name);
+        => _students
+            .Where(student => student.Name != null &&
+                   student.Name != "")
+            .OrderBy(student => student.Name);
 
         public ILookup<string, Student> GroupStudentsByFaculty()
-            => _students.ToLookup(student => student.Faculty);
+        => _students.ToLookup(student => student.Faculty);
 
         public string GetFacultyWithHighestAverageGrade()
-            => _students.GroupBy(student => student.Faculty)
+        => _students
+            .GroupBy(student => student.Faculty)
             .OrderByDescending(group => group.Average(student => student.Grades.Average()))
             .First()
             .Key;
