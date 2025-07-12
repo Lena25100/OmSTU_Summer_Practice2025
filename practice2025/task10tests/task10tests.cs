@@ -1,35 +1,10 @@
 using Plugin;
+using PluginsLib;
 using task10;
 using Xunit;
 
 namespace task10tests
 {
-    [PluginLoad]
-    public class FirstPlugin : IPluginCommand
-    {
-        public void Execute()
-        {
-            Console.WriteLine("Первый плагин выполнился!");
-        }
-    }
-
-    [PluginLoad("FirstPlugin")]
-    public class SecondPlugin : IPluginCommand
-    {
-        public void Execute()
-        {
-            Console.WriteLine("Второй плагин выполнился!");
-        }
-    }
-
-    [PluginLoad("SecondPlugin")]
-    public class ThirdPlugin : IPluginCommand
-    {
-        public void Execute()
-        {
-            Console.WriteLine("Третий плагин выполнился!");
-        }
-    }
 
     public class PluginLoadTests : IDisposable
     {
@@ -62,9 +37,9 @@ namespace task10tests
             plugin_loader.FindPluginsAndLoad();
 
             var consOutput = output.ToString();
-            Assert.Contains("Первый плагин выполнился!", consOutput);
-            Assert.Contains("Второй плагин выполнился!", consOutput);
-            Assert.Contains("Третий плагин выполнился!", consOutput);
+            Assert.Contains("РџРµСЂРІС‹Р№ РїР»Р°РіРёРЅ РІС‹РїРѕР»РЅРёР»СЃСЏ!", consOutput);
+            Assert.Contains("Р’С‚РѕСЂРѕР№ РїР»Р°РіРёРЅ РІС‹РїРѕР»РЅРёР»СЃСЏ!", consOutput);
+            Assert.Contains("РўСЂРµС‚РёР№ РїР»Р°РіРёРЅ РІС‹РїРѕР»РЅРёР»СЃСЏ!", consOutput);
         }
 
         [Fact]
@@ -77,9 +52,9 @@ namespace task10tests
             plugin_loader.FindPluginsAndLoad();
 
             var consOutput = output.ToString();
-            int index_1 = consOutput.IndexOf("Первый плагин выполнился!");
-            int index_2 = consOutput.IndexOf("Второй плагин выполнился!");
-            int index_3 = consOutput.IndexOf("Третий плагин выполнился!");
+            int index_1 = consOutput.IndexOf("РџРµСЂРІС‹Р№ РїР»Р°РіРёРЅ РІС‹РїРѕР»РЅРёР»СЃСЏ!");
+            int index_2 = consOutput.IndexOf("Р’С‚РѕСЂРѕР№ РїР»Р°РіРёРЅ РІС‹РїРѕР»РЅРёР»СЃСЏ!");
+            int index_3 = consOutput.IndexOf("РўСЂРµС‚РёР№ РїР»Р°РіРёРЅ РІС‹РїРѕР»РЅРёР»СЃСЏ!");
 
             Assert.True(index_1 >= 0);
             Assert.True(index_2 >= 0);

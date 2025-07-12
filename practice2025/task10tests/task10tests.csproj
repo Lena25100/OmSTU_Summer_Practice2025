@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PluginsLib\PluginsLib.csproj" />
     <ProjectReference Include="..\plugin\plugin.csproj" />
     <ProjectReference Include="..\task10\task10.csproj" />
   </ItemGroup>

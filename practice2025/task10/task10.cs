@@ -21,11 +21,12 @@ namespace task10
 
                 foreach (var type in assembly.GetTypes())
                 {
+                    var attribute = type.GetCustomAttribute<PluginLoadAttribute>();
                     if (typeof(IPluginCommand).IsAssignableFrom(type) &&
                         !type.IsInterface &&
-                        type.GetCustomAttribute<PluginLoadAttribute>() != null)
+                        attribute != null)
                     {
-                        plugins.Add((type, type.Name, type.GetCustomAttribute<PluginLoadAttribute>().PlaginsDependencies));
+                        plugins.Add((type, type.Name, attribute.PlaginsDependencies));
                     }
                 }
             }
